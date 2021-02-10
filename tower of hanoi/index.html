@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        section {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .stack {
+            width: 500px;
+            height: 80%;
+            position: relative;
+        }
+
+        .plate {
+            width: 95%;
+            height: 10px;
+            background: #72311d;
+            align-self: flex-end;
+            border-radius: 5px;
+            box-shadow: 1px 4px 12px #000
+        }
+
+        .rod {
+            height: 90%;
+            width: 10px;
+            background: #72311d;
+            transform: translate(-242px, 25px);
+            border-radius: 5px;
+        }
+
+        .poll {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blocks {
+            width: 90%;
+            height: 100%;
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+            border: 1px solid black;
+        }
+
+        .block {
+            height: 50px;
+            width: 80%;
+            background-color: #438ea7;
+            margin: 2px 0;
+            border-radius: 14px;
+            transition: all 1s ease;
+
+        }
+    </style>
+</head>
+
+<body>
+    <section>
+        <div class="stack">
+            <div class="poll">
+                <div class="plate"></div>
+                <div class="rod"></div>
+            </div>
+            <div class="blocks" id="blocks_1">
+                <div style="width: 65%;" class="block" id="block"></div>
+                <div style="width: 60%;" class="block" id="block"></div>
+                <div style="width: 55%;" class="block" id="block"></div>
+                <div style="width: 50%;" class="block" id="block"></div>
+                <div style="width: 45%;" class="block" id="block"></div>
+                <div style="width: 40%;" class="block" id="block"></div>
+
+            </div>
+        </div>
+        <div class="stack">
+            <div class="poll">
+                <div class="plate"></div>
+                <div class="rod"></div>
+            </div>
+            <div class="blocks" id="blocks_2">
+
+
+            </div>
+        </div>
+        <div class="stack">
+            <div class="poll">
+                <div class="plate"></div>
+                <div class="rod"></div>
+            </div>
+            <div class="blocks" id="blocks_3">
+
+
+            </div>
+        </div>
+        <button onclick='tower(6,"blocks_1","blocks_2","blocks_3")' id="btn">start</button>
+    </section>
+
+</body>
+<script>
+
+// var t1 = new Date();
+//     var t2 = new Date();
+// start();
+    function stack_pop(stk) {
+        var con = document.getElementById(stk);
+        var lastchild = con.lastElementChild;
+        lastchild.remove();
+        return lastchild;
+    }
+
+    function stack_push(stk, elem) {
+        var con = document.getElementById(stk);
+        con.appendChild(elem);
+
+        console.log(elem);
+    }
+
+    //  
+    // stack_pop("blocks_1");
+
+    // var blocks = document.getElementById("blocks_1");
+    // for (let index = 10; index > 0; index--) {
+    //     var elem = document.createElement('div');
+    //     elem.id = "block";
+    //     elem.className = "block";
+    //     elem.style.width =40+ 3*index +"%"; 
+    //     blocks.appendChild(elem);
+
+    // }
+    // tower(6,"blocks_1","blocks_2","blocks_3");
+    // ===================recursion============
+    // var stack1 = [10, 20, 30, 40, 50, 60, 70, 80];
+    // var stack2 = [];
+    // var buffer = [];
+    // document.write(stack2);
+    // var len = stack1.length;
+    // tower(len, stack1, buffer, stack2);
+    function transfer(second, first) {
+
+        return stack_push(second, stack_pop(first));
+    }
+
+    function tower(len, first, mid, second) {
+        if (len == 1) {
+            // second.push(first.pop());
+            
+            transfer(second, first);
+        }
+        else {
+
+            tower(len - 1, first, second, mid);
+            tower(1, first, mid, second);
+            tower(len - 1, mid, first, second);
+
+
+        }
+    }
+    // document.write(stack2);
+
+    function delay(time) {
+        var d1 = new Date();
+        var d2 = new Date();
+        while (d2.valueOf() < d1.valueOf() + time) {
+            d2 = new Date();
+        }
+    }
+    // end();
+
+// function start(){
+//     t1 = new Date();
+//  t2 = new Date();
+// }
+// function end(){
+// t2 = new Date();
+// console.log(t2-t1);
+// }
+
+
+</script>
+
+</html>
